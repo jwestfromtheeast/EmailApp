@@ -1,12 +1,9 @@
 const express = require('express'); //node has support from common js modules.
+require('./services/passport'); //dont need an equals because it doesn't actually return anything to assign
 //using import statements is a feature of es2015, not node at the moment. so, our backend must use require, the front with react can use import
-const passport = require('passport'); //import passport js
-const GoogleStrategy = require('passport-google-oauth20').Strategy; //import passport strategy for google oauth 2.0
-const app = express(); //generates a new application that represents a running express app
+const app = express(); //generates a new application that represents a running express app 	
 
-//passport.use: a generic register to have passport make use of the given strategy
-passport.use(new GoogleStrategy());
-
+require('./routes/authRoutes')(app); //since require returns out arrow function from authRoutes.js, we can put our argument "app" right after
 /*create route handler and associate with given route
 app.get('/', (req, res) => { //get: watch for incoming response. '/' looks for requests trying to access address '/'. req and res are request and response.
     res.send({ bye: 'buddy' }); //send some json data back to whoever made the request
